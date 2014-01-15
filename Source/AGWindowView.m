@@ -170,6 +170,8 @@ static NSMutableArray *_activeWindowViews;
     CGRect frame = [[self class] rectInWindowBounds:self.window.bounds statusBarOrientation:statusBarOrientation statusBarHeight:statusBarHeight];
     
     [self setIfNotEqualTransform:transform frame:frame];
+
+    [self layoutChildViews];
 }
 
 - (void)setIfNotEqualTransform:(CGAffineTransform)transform frame:(CGRect)frame
@@ -181,6 +183,12 @@ static NSMutableArray *_activeWindowViews;
     if(!CGRectEqualToRect(self.frame, frame))
     {
         self.frame = frame;
+    }
+}
+
+- (void)layoutChildViews {
+    for (UIView *subview in self.subviews) {
+        [subview setNeedsLayout];
     }
 }
 
